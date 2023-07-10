@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -23,11 +24,14 @@ public class Partida {
     private List<Transacao> transacoes;
     @OneToMany(mappedBy = "partida")
     private List<Conta> contas;
-    @NotBlank(message = "Este campo é obrigatório.")
+
+    @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double saldoBanco;
 
-    public Partida(Long id, String partidaId, List<Transacao> transacoes, List<Conta> contas, Double saldoBanco) {
+    public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
+            List<Transacao> transacoes, List<Conta> contas,
+            @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco) {
         this.id = id;
         this.partidaId = partidaId;
         this.transacoes = transacoes;

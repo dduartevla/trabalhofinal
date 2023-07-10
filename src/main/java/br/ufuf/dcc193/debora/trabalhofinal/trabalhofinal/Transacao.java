@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -23,7 +24,7 @@ public class Transacao {
     @NotBlank(message = "A conta que recebe não pode estar em branco.")
     private String contaRecebe;
     private LocalDateTime dateTime;
-    @NotBlank(message = "Este campo é obrigatório.")
+    @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double valor;
 
