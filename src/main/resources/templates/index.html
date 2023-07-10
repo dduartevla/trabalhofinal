@@ -3,11 +3,24 @@
 
 <head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
 
+<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        body {
+            background-color: #9DD8EE;
+        }
+</style>
+
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')" />
-    <a th:href="@{/entrarPartida}">Entrar em uma Partida</a>
+    <a th:href="@{/entrarPartida}"><button>Entrar em uma Partida</button></a>
     </br>
-    <a th:href="@{/criaNovaPartida.html}">Criar uma Partida</a>
+    <a th:href="@{/criaNovaPartida.html}"><button>Criar uma Partida</button></a><br><br>
     <footer th:replace="layout-padrao.html::footer" />
 </body>
 

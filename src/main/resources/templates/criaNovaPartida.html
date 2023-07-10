@@ -3,6 +3,22 @@
 
 <head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
 
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    body {
+        background-color: #9DD8EE;
+    }
+    .button-container {
+            text-align: center;
+        }
+</style>
+
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
 
@@ -10,9 +26,9 @@
         <div>
             <label for=" saldoBanco">Saldo inicial do Banco: </label>
             <input type="text" th:field="*{saldoBanco}" id="saldoBanco">
-            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong>
+            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br><br>
         </div>
-        <button type="submit">Criar Partida</button>
+        <button type="submit">Criar Partida</button><br><br>
     </form>
 
     <footer th:replace="layout-padrao.html::footer" />
