@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.thymeleaf.org">
+
+<head th:fragment="head (titulo)">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Layout Padrão</title>
+</head>
+
+<body>
+    <header th:fragment="header (titulo)">
+        <h1 th:text="${titulo}">Layout Padrão</h1>
+    </header>
+
+    <footer>
+        <p>&copy; Débora Izabel Rocha Duarte - 2023</p>
+        <p>&copy; Fabrício de Souza Guidine - 2023</p>
+    </footer>
+</body>
+
+</html>
