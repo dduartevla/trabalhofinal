@@ -31,17 +31,15 @@ public class Transacao {
     private Partida partida;
 
     public Transacao() {
-        this(null, null, null, null, 0.0, null);
+        this(null, null, null, null, 0.0);
     }
 
-    public Transacao(String gameId, String contaEnvia, String contaRecebe, LocalDateTime dateTime, Double valor,
-            Partida partida) {
+    public Transacao(String gameId, String contaEnvia, String contaRecebe, LocalDateTime dateTime, Double valor) {
         this.gameId = gameId;
         this.contaEnvia = contaEnvia;
         this.contaRecebe = contaRecebe;
         this.dateTime = dateTime;
         this.valor = valor;
-        this.partida = partida;
     }
 
     public String getGameId() {

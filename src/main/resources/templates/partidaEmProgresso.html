@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout-padrao.html::head(titulo='Menu Inicial')" />
+<head th:replace="layout-padrao.html::head(titulo='Partida')" />
 
 <body>
-    <h1>Partida em Progresso</h1>
+    <header th:replace="layout-padrao.html::header(titulo='Partida em Progresso')" />
+
+    <p th:object="${partida}" th:text="${partida.id}" />
+
+    <div>
+
+    </div>
 
     <footer th:replace="layout-padrao.html::footer" />
 </body>

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -19,11 +20,12 @@ public class Conta {
     private String nomeConta;
     @ManyToOne
     private Partida partida;
+    @OneToMany(mappedBy = "contaEnvia")
     private List<Transacao> transacoes;
     private Double saldo;
 
     public Conta() {
-        this(null, null, null, new ArrayList<>(), 25000.00);
+        this(null, null, null, new ArrayList<>(), 0.00);
     }
 
     public Conta(Long id, @NotBlank(message = "Campo não pode estar em branco.") String nomeConta, Partida partida,
