@@ -31,15 +31,17 @@ public class Transacao {
     private Partida partida;
 
     public Transacao() {
-        this(null, null, null, null, 0.0);
+        this(null, null, null, null, 0.0, null);
     }
 
-    public Transacao(String gameId, String contaEnvia, String contaRecebe, LocalDateTime dateTime, Double valor) {
+    public Transacao(String gameId, String contaEnvia, String contaRecebe, LocalDateTime dateTime, Double valor,
+            Partida partida) {
         this.gameId = gameId;
         this.contaEnvia = contaEnvia;
         this.contaRecebe = contaRecebe;
         this.dateTime = dateTime;
         this.valor = valor;
+        this.partida = partida;
     }
 
     public String getGameId() {
@@ -88,6 +90,14 @@ public class Transacao {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Partida getPartida() {
+        return partida;
+    }
+
+    public void setPartida(Partida partida) {
+        this.partida = partida;
     }
 
 }
