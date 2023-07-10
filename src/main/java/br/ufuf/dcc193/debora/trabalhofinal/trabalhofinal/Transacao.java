@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
@@ -25,6 +26,9 @@ public class Transacao {
     @NotBlank(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double valor;
+
+    @ManyToOne
+    private Partida partida;
 
     public Transacao() {
         this(null, null, null, null, 0.0);

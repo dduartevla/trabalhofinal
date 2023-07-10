@@ -3,6 +3,7 @@ package br.ufuf.dcc193.debora.trabalhofinal.trabalhofinal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PartidaController {
@@ -17,9 +18,11 @@ public class PartidaController {
         return "/criaNovaPartida.html";
     }
 
-    // @PostMapping("/criaNovaPartida.html")
-    // public String criaPartidaPost(){
+    @PostMapping("/criaNovaPartida.html")
+    public ModelAndView criaPartidaPost() {
+        ModelAndView mv = new ModelAndView();
 
-    // }
+        return mv;
+    }
 
 }
