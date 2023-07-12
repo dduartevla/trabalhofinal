@@ -70,6 +70,10 @@ public class Partida {
         this.senha = senha;
     }
 
+    public void setPartidaId(String partidaId) {
+        this.partidaId = partidaId;
+    }
+
     public void setPartidaId() {
         this.partidaId = generateRandomId();
     }
@@ -112,10 +116,6 @@ public class Partida {
 
     public List<Conta> getContas() {
         return contas;
-    }
-
-    public void setPartidaId(String partidaId) {
-        this.partidaId = partidaId;
     }
 
     public Double getSaldoBanco() {
