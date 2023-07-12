@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    body {
+        background-color: #9DD8EE;
+    }
+    .button-container {
+            text-align: center;
+        }
+</style>
+
+<body>
+    <header th:replace="layout-padrao.html::header(titulo='Criar Nova Conta')"></header>
+    <form method="post" action="/partidaEmProgresso" th:object="${partida}">
+        <p>Cria conta aqui</p>
+        <button type="submit">Criar Partida</button><br><br>
+    </form>
+</body>
+
+</html>

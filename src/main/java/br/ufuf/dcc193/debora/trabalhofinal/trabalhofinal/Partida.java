@@ -28,21 +28,22 @@ public class Partida {
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double saldoBanco;
     private boolean ePrivada;
-    private String senha;
+    @NotBlank(message = "Partidas privadas devem ter uma senha.")
+    private String senhaPartida;
     @NotBlank(message = "Campo não pode estar em branco.")
     private String nomeConta;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
             List<Transacao> transacoes, List<Conta> contas,
             @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco,
-            boolean ePrivada, String senha) {
+            boolean ePrivada, @NotBlank(message = "Partidas privadas devem ter uma senha.") String senhaPartida) {
         this.id = id;
         this.partidaId = partidaId;
         this.transacoes = transacoes;
         this.contas = contas;
         this.saldoBanco = saldoBanco;
         this.ePrivada = ePrivada;
-        this.senha = senha;
+        this.senhaPartida = senhaPartida;
     }
 
     public Partida() {
@@ -62,12 +63,12 @@ public class Partida {
         this.ePrivada = ePrivada;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getSenhaPartida() {
+        return senhaPartida;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setSenhaPartida(String senhaPartida) {
+        this.senhaPartida = senhaPartida;
     }
 
     public void setPartidaId(String partidaId) {

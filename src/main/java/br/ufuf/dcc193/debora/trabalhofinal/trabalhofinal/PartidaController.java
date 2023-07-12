@@ -23,7 +23,7 @@ public class PartidaController {
     public String index() {
         return "/index.html";
     }
-   
+
     @GetMapping("/criaNovaPartida.html")
     public ModelAndView criaPartida() {
         partida = new Partida();
@@ -32,7 +32,7 @@ public class PartidaController {
         mv.setViewName("criaNovaPartida");
         return mv;
     }
-    
+
     @PostMapping("/criaNovaPartida.html")
     public ModelAndView criaPartida(@Valid Partida partida, BindingResult binding) {
         ModelAndView mv = new ModelAndView();
@@ -49,14 +49,14 @@ public class PartidaController {
 
     @GetMapping("/escolherPartida.html")
     public ModelAndView escolherPartida() {
-        List <Partida> listaDePartidas = partidaRep.findAll();
+        List<Partida> listaDePartidas = partidaRep.findAll();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("escolherPartida.html");
         mv.addObject("listaDePartidas", listaDePartidas);
         return mv;
     }
 
-    @GetMapping("/partidaEmProgresso.html")
+    @GetMapping("/partidaEmProgresso")
     public ModelAndView criaPartidaGet() {
         partida = new Partida();
         ModelAndView mv = new ModelAndView();
@@ -65,32 +65,27 @@ public class PartidaController {
         return mv;
     }
 
-    @PostMapping("/partidaEmProgresso.html")
-    public ModelAndView criaPartidaPost(@Valid Partida partida, BindingResult bindingResult,
-            @RequestParam String nomeConta) {
+    @PostMapping("/partidaEmProgresso")
+    public ModelAndView criaPartidaPost(@Valid Partida partida, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             ModelAndView mv = new ModelAndView();
             mv.addObject("partida", partida);
             return mv;
         }
 
-        if (nomeConta == null || nomeConta.trim().isEmpty()) {
-            bindingResult.rejectValue("nomeConta", "NotEmpty", "O nome da conta é obrigatório");
-            ModelAndView mv = new ModelAndView("criaNovaPartida.html");
-            mv.addObject("partida", partida);
-            return mv;
-        }
-
-        Conta novaConta = new Conta();
-        novaConta.setNomeConta(nomeConta);
-        novaConta.setSaldo(25000.00);
-        novaConta.setPartida(partida);
-
-        partida.getContas().add(novaConta);
-
         ModelAndView mv = new ModelAndView();
+        mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
         return mv;
     }
 
+    @PostMapping("/criaNovaConta")
+    public ModelAndView criaConta(@Valid Partida partida, BindingResult bindingResult) {
+
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("criaNovaConta.html");
+        return mv;
+    }
 }
