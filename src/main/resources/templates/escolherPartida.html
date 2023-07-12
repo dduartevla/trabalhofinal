@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="layout-padrao.html::head(titulo='Escolha uma Partida')" />
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    body {
+        background-color: #9DD8EE;
+    }
+    .button-container {
+            text-align: center;
+        }
+</style>
+
+<body>
+    <header th:replace="layout-padrao.html::header(titulo='Escolha uma Partida para Jogar')"></header>
+    {% comment %} <form method="post" action="/partidaEmProgresso.html" th:object="${listaDePartidas}">
+        <div>
+            <label for="partidaId">Identificador da Partida: </label>
+            <input type="text" id="partidaId">
+            <strong th:if="${#fields.hasErrors('partidaId')}" th:errors="*{partidaId}"></strong><br><br>
+        </div>
+        <button type="submit">Escolher Partida</button><br><br>
+    </form> {% endcomment %}
+
+    <table>
+        <thead>
+            <tr> <th>id</th> <th>Id da partida:</th> </tr>
+        </thead>
+        <tbody>
+            <tr th:each="partida: ${listaDePartidas}" th:object="${partida}">
+                <td>
+                    <p>
+                        <a  th:text="*{id}"></a>
+                    </p>
+                </td>
+                <td th:text="*{getPartidaId()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
