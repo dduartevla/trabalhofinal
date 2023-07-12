@@ -32,6 +32,7 @@ public class Partida {
     private String senhaPartida;
     @NotBlank(message = "Campo não pode estar em branco.")
     private String nomeConta;
+    private String senhaConta;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
             List<Transacao> transacoes, List<Conta> contas,
@@ -133,6 +134,14 @@ public class Partida {
 
     public void setNomeConta(String nomeConta) {
         this.nomeConta = nomeConta;
+    }
+
+    public String getSenhaConta() {
+        return senhaConta;
+    }
+
+    public void setSenhaConta(String senhaConta) {
+        this.senhaConta = senhaConta;
     }
 
 }

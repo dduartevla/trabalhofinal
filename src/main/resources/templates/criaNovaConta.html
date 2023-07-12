@@ -22,8 +22,17 @@
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Criar Nova Conta')"></header>
     <form method="post" action="/partidaEmProgresso" th:object="${partida}">
-        <p>Cria conta aqui</p>
-        <button type="submit">Criar Partida</button><br><br>
+        <div>
+            <label for="nomeConta">Nome da Conta:</label>
+            <input type="text" name="nomeConta" id="nomeConta">
+            <strong th:if="${#fields.hasErrors('nomeConta')}" th:errors="*{nomeConta}"></strong>
+        </div>
+        <div>
+            <label for="senhaConta">Senha da Conta:</label>
+            <input type="password" name="senhaConta" id="nomeConta">
+            <strong th:if="${#fields.hasErrors('senhaConta')}" th:errors="*{senhaConta}"></strong>
+        </div>
+        <button type="submit">Criar Conta</button><br><br>
     </form>
 </body>
 
