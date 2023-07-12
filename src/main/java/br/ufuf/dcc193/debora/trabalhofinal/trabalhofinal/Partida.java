@@ -24,28 +24,48 @@ public class Partida {
     private List<Transacao> transacoes;
     @OneToMany(mappedBy = "partida")
     private List<Conta> contas;
-
     @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double saldoBanco;
+    private boolean ePrivada;
+    private String senha;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
             List<Transacao> transacoes, List<Conta> contas,
-            @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco) {
+            @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco,
+            boolean ePrivada, String senha) {
         this.id = id;
         this.partidaId = partidaId;
         this.transacoes = transacoes;
         this.contas = contas;
         this.saldoBanco = saldoBanco;
+        this.ePrivada = ePrivada;
+        this.senha = senha;
     }
 
     public Partida() {
-        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null);
+        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null);
         setPartidaId();
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isePrivada() {
+        return ePrivada;
+    }
+
+    public void setePrivada(boolean ePrivada) {
+        this.ePrivada = ePrivada;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void setPartidaId() {
