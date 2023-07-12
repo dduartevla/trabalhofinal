@@ -47,7 +47,7 @@ public class Partida {
 
     public Partida() {
         this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null);
-        setPartidaId();
+        setPartidaRandomId();
     }
 
     public void setId(Long id) {
@@ -74,7 +74,7 @@ public class Partida {
         this.partidaId = partidaId;
     }
 
-    public void setPartidaId() {
+    public void setPartidaRandomId() {
         this.partidaId = generateRandomId();
     }
 
