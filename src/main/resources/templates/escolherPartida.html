@@ -21,14 +21,31 @@
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Escolha uma Partida para Jogar')"></header>
-    <form method="post" action="/partidaEmProgresso.html" th:object="${listaDePartidas}">
+    {% comment %} <form method="post" action="/partidaEmProgresso.html" th:object="${listaDePartidas}">
         <div>
             <label for="partidaId">Identificador da Partida: </label>
             <input type="text" id="partidaId">
             <strong th:if="${#fields.hasErrors('partidaId')}" th:errors="*{partidaId}"></strong><br><br>
         </div>
         <button type="submit">Escolher Partida</button><br><br>
-    </form>
+    </form> {% endcomment %}
+
+    <table>
+        <thead>
+            <tr> <th>id</th> <th>Id da partida:</th> </tr>
+        </thead>
+        <tbody>
+            <tr th:each="partida: ${listaDePartidas}" th:object="${partida}">
+                <td>
+                    <p>
+                        <a  th:text="*{id}"></a>
+                    </p>
+                </td>
+                <td th:text="*{getPartidaId()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 
 </html>
