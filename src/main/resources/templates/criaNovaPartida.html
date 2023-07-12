@@ -21,7 +21,7 @@
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
-    <form method="post" action="/criaNovaConta" th:object="${partida}">
+    <form method="get" action="/criaNovaConta" th:object="${partida}">
         <div>
             <label for="saldoBanco">Saldo inicial do Banco: </label>
             <input type="text" th:field="*{saldoBanco}" id="saldoBanco">

@@ -21,7 +21,7 @@
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Criar Nova Conta')"></header>
-    <form method="post" action="/partidaEmProgresso" th:object="${partida}">
+    <form method="post" action="/criaNovaConta" th:object="${partida}">
         <div>
             <label for="nomeConta">Nome da Conta:</label>
             <input type="text" name="nomeConta" id="nomeConta">

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -33,11 +34,14 @@ public class Partida {
     @NotBlank(message = "Campo não pode estar em branco.")
     private String nomeConta;
     private String senhaConta;
+    @OneToOne
+    private Conta contaQueJoga;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
             List<Transacao> transacoes, List<Conta> contas,
             @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco,
-            boolean ePrivada, @NotBlank(message = "Partidas privadas devem ter uma senha.") String senhaPartida) {
+            boolean ePrivada, @NotBlank(message = "Partidas privadas devem ter uma senha.") String senhaPartida,
+            Conta contaQueJoga) {
         this.id = id;
         this.partidaId = partidaId;
         this.transacoes = transacoes;
@@ -45,10 +49,11 @@ public class Partida {
         this.saldoBanco = saldoBanco;
         this.ePrivada = ePrivada;
         this.senhaPartida = senhaPartida;
+        this.contaQueJoga = contaQueJoga;
     }
 
     public Partida() {
-        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null);
+        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null, null);
         setPartidaId();
     }
 
@@ -142,6 +147,14 @@ public class Partida {
 
     public void setSenhaConta(String senhaConta) {
         this.senhaConta = senhaConta;
+    }
+
+    public Conta getContaQueJoga() {
+        return contaQueJoga;
+    }
+
+    public void setContaQueJoga(Conta contaQueJoga) {
+        this.contaQueJoga = contaQueJoga;
     }
 
 }
