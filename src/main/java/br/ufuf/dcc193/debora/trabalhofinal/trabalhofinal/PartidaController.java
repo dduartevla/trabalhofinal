@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,9 @@ public class PartidaController {
 
     @Autowired
     PartidaRepository partidaRep;
+
+    @Autowired
+    ContaRepository repConta;
 
     @GetMapping({ "", "/", "/index.html" })
     public String index() {
@@ -49,13 +53,21 @@ public class PartidaController {
         return mv;
     }
 
-    @GetMapping("/escolherPartida.html")
+    @GetMapping("/escolherPartida{id}")
     public ModelAndView escolherPartida() {
         List<Partida> listaDePartidas = partidaRep.findAll();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("escolherPartida.html");
         mv.addObject("listaDePartidas", listaDePartidas);
         return mv;
+    }
+
+    @PostMapping("/escolherPartida{id}")
+    public ModelAndView escolherPartida(@PathVariable Long id) {
+
+        this.partida = partidaRep.findById(id.toString());
+        ModelAndView mv;
+        return mv = criaConta(partida);
     }
 
     @GetMapping("/partidaEmProgresso")
@@ -99,9 +111,7 @@ public class PartidaController {
             @RequestParam String senhaConta) {
 
         System.out.println("PARTIDA SALGADA" + this.partida.getSaldoBanco());
-        partida.setSaldoBanco(this.partida.getSaldoBanco());
-        partida.setPartidaId(this.partida.getPartidaId());
-        partida.setId(this.partida.getId());
+        partida = this.partida;
 
         if (nomeConta == null || nomeConta.trim().isEmpty()) {
             bindingResult.rejectValue("nomeConta", "NotEmpty", "O nome da conta é obrigatório");
@@ -128,6 +138,7 @@ public class PartidaController {
                     // a conta já existe e a senha informada está correta
                     System.out.println("achou uma conta e senha confere: " + nomeConta);
                     partida.setContaQueJoga(contas.get(i));
+                    partida.setNomeConta(nomeConta);
                     ModelAndView mv = new ModelAndView();
                     mv.setViewName("partidaEmProgresso.html");
                     mv.addObject("partida", partida);
@@ -140,16 +151,17 @@ public class PartidaController {
                 return mv;
             }
         }
+        partidaRep.save(partida);
 
         Conta novaConta = new Conta();
         novaConta.setNomeConta(nomeConta);
         novaConta.setSenhaConta(senhaConta);
         novaConta.setSaldo(25000.00);
-        novaConta.setPartida(partida);
-
         partida.setContaQueJoga(novaConta);
         partida.getContas().add(novaConta);
-
+        partida.setNomeConta(nomeConta);
+        novaConta.setPartida(partida);
+        partidaRep.save(partida);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,10 +34,10 @@ public class Partida {
     private boolean ePrivada;
     @NotBlank(message = "Partidas privadas devem ter uma senha.")
     private String senhaPartida;
-    @NotBlank(message = "Campo não pode estar em branco.")
     private String nomeConta;
     private String senhaConta;
     @OneToOne
+    @Cascade(CascadeType.ALL)
     private Conta contaQueJoga;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
