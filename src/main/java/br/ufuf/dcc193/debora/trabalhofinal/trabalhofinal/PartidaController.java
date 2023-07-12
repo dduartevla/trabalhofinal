@@ -16,6 +16,13 @@ public class PartidaController {
 
     Partida partida;
 
+    public String getUltimoIdPartida(List <Partida> listaDePartidas){
+        
+        Partida ultimaPartida = listaDePartidas.get(listaDePartidas.size()-1);
+        String ultimoIdPartida = ultimaPartida.getPartidaId();
+        return ultimoIdPartida;
+    }
+
     @Autowired
     PartidaRepository partidaRep;
 
@@ -58,10 +65,11 @@ public class PartidaController {
 
     @GetMapping("/partidaEmProgresso.html")
     public ModelAndView criaPartidaGet() {
-        partida = new Partida();
+        List <Partida> listaDePartidas = partidaRep.findAll();
+        String idUltimaPartidaCadastrada = getUltimoIdPartida(listaDePartidas);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
-        mv.addObject("partida", partida);
+        mv.addObject("idUltimaPartidaCadastrada", idUltimaPartidaCadastrada);
         return mv;
     }
 
