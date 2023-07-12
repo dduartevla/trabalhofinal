@@ -87,6 +87,7 @@ public class PartidaController {
 
         System.out.println("partida salgada" + partida.getSaldoBanco());
         this.partida = partida;
+        System.out.println("partida salgada" + this.partida.getSaldoBanco());
         ModelAndView mv = new ModelAndView();
         mv.setViewName("criaNovaConta.html");
         mv.addObject("partida", partida);
@@ -97,7 +98,10 @@ public class PartidaController {
     public ModelAndView criaConta(Partida partida, BindingResult bindingResult, @RequestParam String nomeConta,
             @RequestParam String senhaConta) {
 
-        System.out.println("PARTIDA SALGADA" + partida.getSaldoBanco());
+        System.out.println("PARTIDA SALGADA" + this.partida.getSaldoBanco());
+        partida.setSaldoBanco(this.partida.getSaldoBanco());
+        partida.setPartidaId(this.partida.getPartidaId());
+        partida.setId(this.partida.getId());
 
         if (nomeConta == null || nomeConta.trim().isEmpty()) {
             bindingResult.rejectValue("nomeConta", "NotEmpty", "O nome da conta é obrigatório");
