@@ -24,31 +24,57 @@ public class Partida {
     private List<Transacao> transacoes;
     @OneToMany(mappedBy = "partida")
     private List<Conta> contas;
-
     @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double saldoBanco;
+    private boolean ePrivada;
+    private String senha;
+    @NotBlank(message = "Campo não pode estar em branco.")
+    private String nomeConta;
 
     public Partida(Long id, @NotBlank(message = "Campo não pode estar em branco.") String partidaId,
             List<Transacao> transacoes, List<Conta> contas,
-            @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco) {
+            @NotNull(message = "Este campo é obrigatório.") @PositiveOrZero(message = "valor deve ser maior ou igual a zero.") Double saldoBanco,
+            boolean ePrivada, String senha) {
         this.id = id;
         this.partidaId = partidaId;
         this.transacoes = transacoes;
         this.contas = contas;
         this.saldoBanco = saldoBanco;
+        this.ePrivada = ePrivada;
+        this.senha = senha;
     }
 
     public Partida() {
-        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null);
-        setPartidaId();
+        this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null);
+        setPartidaRandomId();
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setPartidaId() {
+    public boolean isePrivada() {
+        return ePrivada;
+    }
+
+    public void setePrivada(boolean ePrivada) {
+        this.ePrivada = ePrivada;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setPartidaId(String partidaId) {
+        this.partidaId = partidaId;
+    }
+
+    public void setPartidaRandomId() {
         this.partidaId = generateRandomId();
     }
 
@@ -92,16 +118,20 @@ public class Partida {
         return contas;
     }
 
-    public void setPartidaId(String partidaId) {
-        this.partidaId = partidaId;
-    }
-
     public Double getSaldoBanco() {
         return saldoBanco;
     }
 
     public void setSaldoBanco(Double saldoBanco) {
         this.saldoBanco = saldoBanco;
+    }
+
+    public String getNomeConta() {
+        return nomeConta;
+    }
+
+    public void setNomeConta(String nomeConta) {
+        this.nomeConta = nomeConta;
     }
 
 }

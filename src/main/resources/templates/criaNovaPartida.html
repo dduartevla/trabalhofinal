@@ -21,17 +21,28 @@
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
-
-    <form method="post" action="/partidaEmProgresso.html" th:object="${partida}">
+    <form method="post" action="/criaNovaPartida.html" th:object="${partida}">
         <div>
-            <label for=" saldoBanco">Saldo inicial do Banco: </label>
+            <label for="saldoBanco">Saldo inicial do Banco: </label>
             <input type="text" th:field="*{saldoBanco}" id="saldoBanco">
             <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br><br>
         </div>
+        <div>
+            <label for="ePrivada">Partida Privada:</label>
+            <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
+        </div>
+        <div th:if="${partida.ePrivada}">
+            <label for="senha">Senha:</label>
+            <input type="password" th:field="*{senha}" id="senha">
+            <strong th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></strong>
+        </div>
+        <div>
+            <label for="nomeConta">Nome da Conta:</label>
+            <input type="text" name="nomeConta" id="nomeConta">
+            <strong th:if="${#fields.hasErrors('nomeConta')}" th:errors="*{nomeConta}"></strong>
+        </div>
         <button type="submit">Criar Partida</button><br><br>
     </form>
-
-    <footer th:replace="layout-padrao.html::footer" />
 </body>
 
 </html>
