@@ -23,18 +23,37 @@ public class Conta {
     @OneToMany(mappedBy = "contaEnvia")
     private List<Transacao> transacoes;
     private Double saldo;
+    private String senhaConta;
 
     public Conta() {
-        this(null, null, null, new ArrayList<>(), 0.00);
+        this(null, null, null, new ArrayList<>(), 0.00, null);
     }
 
     public Conta(Long id, @NotBlank(message = "Campo não pode estar em branco.") String nomeConta, Partida partida,
-            List<Transacao> transacoes, Double saldo) {
+            List<Transacao> transacoes, Double saldo, String senhaConta) {
         this.id = id;
         this.nomeConta = nomeConta;
         this.partida = partida;
         this.transacoes = transacoes;
         this.saldo = saldo;
+        this.senhaConta = senhaConta;
+        ;
+    }
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
+
+    public String getSenhaConta() {
+        return senhaConta;
+    }
+
+    public void setSenhaConta(String senhaConta) {
+        this.senhaConta = senhaConta;
     }
 
     public Long getId() {
@@ -59,14 +78,6 @@ public class Conta {
 
     public void setPartida(Partida partida) {
         this.partida = partida;
-    }
-
-    public List<Transacao> getTrasacoes() {
-        return transacoes;
-    }
-
-    public void setTrasacoes(List<Transacao> transacoes) {
-        this.transacoes = transacoes;
     }
 
     public Double getSaldo() {

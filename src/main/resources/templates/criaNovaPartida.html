@@ -29,23 +29,21 @@
 </style>
 
 <body>
-    <header th:replace="layout-padrao.html::header(titulo='Play Money')"></header><br>
-      
-    <form method="post" action="/criaNovaPartida.html" th:object="${partida}">
+    <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
+    <form method="get" action="/criaNovaConta" th:object="${partida}">
         <div>
             <label for="saldoBanco">Saldo Inicial do Banco:</label>
             <input type="text" th:field="*{saldoBanco}" id="saldoBanco">
             <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br><br>
         </div>
-        <div th:if="${partida.ePrivada}">
-            <label for="senha">Senha:</label>
-            <input type="password" th:field="*{senha}" id="senha">
-            <strong th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></strong>
+        <div>
+            <label for="ePrivada">Partida Privada:</label>
+            <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
         </div>
         <div>
-            <label for="nomeConta">Nome da Conta:</label>
-            <input type="text" name="nomeConta" id="nomeConta">
-            <strong th:if="${#fields.hasErrors('nomeConta')}" th:errors="*{nomeConta}"></strong>
+            <label for="senhaPartida">Senha:</label>
+            <input type="password" th:field="*{senhaPartida}" id="senhaPartida">
+            <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}"></strong>
         </div>
         <br>
         <div>

@@ -36,12 +36,14 @@
             <tr>
                 <th>Id |</th>
                 <th>Id da partida</th>
+                <th>Entrar na Partida</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="partida : ${listaDePartidas}" th:object="${partida}">
-                <td th:text="${partida.id}"></td>
+            <tr th:each="partida : ${listaDePartidas}">
+                <td><p th:text="${partida.id}"></p></td>
                 <td th:text="${partida.partidaId}"></td>
+                <td><a th:href="@{/escolheuPartida/{id}(id=*{partida.id})}">Entrar na Partida</a></td>
             </tr>
         </tbody>
     </table>

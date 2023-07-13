@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    body {
+        background-color: #9DD8EE;
+    }
+    .button-container {
+            text-align: center;
+        }
+</style>
+
+<body>
+    <header th:replace="layout-padrao.html::header(titulo='Criar Nova Conta')"></header>
+    <form method="post" action="/criaNovaConta" th:object="${partida}">
+        <div>
+            <label for="nomeConta">Nome da Conta:</label>
+            <input type="text" name="nomeConta" id="nomeConta">
+            <strong th:if="${#fields.hasErrors('nomeConta')}" th:errors="*{nomeConta}"></strong>
+        </div>
+        <div>
+            <label for="senhaConta">Senha da Conta:</label>
+            <input type="password" name="senhaConta" id="nomeConta">
+            <strong th:if="${#fields.hasErrors('senhaConta')}" th:errors="*{senhaConta}"></strong>
+        </div>
+        <button type="submit">Criar Conta</button><br><br>
+    </form>
+</body>
+
+</html>
