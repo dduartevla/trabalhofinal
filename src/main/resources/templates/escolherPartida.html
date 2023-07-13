@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="partida : ${listaDePartidas}" th:object="${partida}">
+            <tr th:each="partida : ${listaDePartidas}">
                 <td th:text="${partida.id}"></td>
                 <td th:text="${partida.partidaId}"></td>
                 <td><a th:href="@{/escolheuPartida/{id}(id=*{partida.id})}">Entrar na Partida</a></td>
