@@ -59,7 +59,6 @@ public class Partida {
     public Partida() {
         this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null, null);
         setPartidaRandomId();
->>>>>>>>> Temporary merge branch 2
     }
 
     public void setId(Long id) {
