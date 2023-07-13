@@ -58,7 +58,8 @@ public class Partida {
 
     public Partida() {
         this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null, null);
-        setPartidaId();
+        setPartidaRandomId();
+>>>>>>>>> Temporary merge branch 2
     }
 
     public void setId(Long id) {
@@ -81,7 +82,7 @@ public class Partida {
         this.senhaPartida = senhaPartida;
     }
 
-    public void setPartidaId(String partidaId) {
+    public void setPartidaRandomId(String partidaId) {
         this.partidaId = partidaId;
     }
 

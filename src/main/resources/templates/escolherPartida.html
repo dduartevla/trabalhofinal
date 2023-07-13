@@ -15,22 +15,30 @@
         background-color: #9DD8EE;
     }
     .button-container {
-        text-align: center;
+            text-align: center;
     }
-    .btn-blue {
-        background-color: #2D86EC;
-        color: white;
-        border-color: #2D86EC;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
+    .Partida{
+        font-weight: bold;
     }
 </style>
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Escolha uma Partida para Jogar')"></header>
+
+    <form action="">
+        <label class="Partida" for="partida">Escolha um id específico para partida</label>
+        <select name="partida" id="partida">
+            <option th:each="partida : ${listaDePartidas}" th:value="${partida.partidaId}" th:text="${partida.id + ' | '  + partida.partidaId}">
+            </option>            
+        </select>
+    </form>
     
+    <div th:each="partida : ${listaDePartidas}">
+        <a th:href="@{/escolheuPartida/{id}(id=*{partida.id})}">Entrar na Partida</a>
+    </div>
+    
+    <br>
+
     <table>
         <thead>
             <tr>
@@ -41,9 +49,9 @@
         </thead>
         <tbody>
             <tr th:each="partida : ${listaDePartidas}">
-                <td><p th:text="${partida.id}"></p></td>
+                <td th:text="${partida.id}"></td>
                 <td th:text="${partida.partidaId}"></td>
-                <td><a th:href="@{/escolheuPartida/{id}(id=*{partida.id})}">Entrar na Partida</a></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
