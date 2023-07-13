@@ -85,7 +85,7 @@ public class Partida {
         this.partidaId = partidaId;
     }
 
-    public void setPartidaId() {
+    public void setPartidaRandomId() {
         this.partidaId = generateRandomId();
     }
 

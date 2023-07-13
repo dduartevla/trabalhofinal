@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
+<head th:replace="layout-padrao.html::head(titulo='Play Money')" />
 
 <style>
     body {
@@ -15,15 +15,24 @@
         background-color: #9DD8EE;
     }
     .button-container {
-            text-align: center;
-        }
+        text-align: center;
+    }
+    .btn-blue {
+        background-color: #2D86EC;
+        color: white;
+        border-color: #2D86EC;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+    }
 </style>
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
     <form method="get" action="/criaNovaConta" th:object="${partida}">
         <div>
-            <label for="saldoBanco">Saldo inicial do Banco: </label>
+            <label for="saldoBanco">Saldo Inicial do Banco:</label>
             <input type="text" th:field="*{saldoBanco}" id="saldoBanco">
             <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br><br>
         </div>
@@ -36,7 +45,15 @@
             <input type="password" th:field="*{senhaPartida}" id="senhaPartida">
             <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}"></strong>
         </div>
-        <button type="submit">Criar Partida</button><br><br>
+        <br>
+        <div>
+            <label for="ePrivada">Partida Privada:</label>
+            <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+            <button class="btn-blue rounded" type="submit">Criar Partida</button><br><br>
+        </div>
     </form>
 </body>
 
