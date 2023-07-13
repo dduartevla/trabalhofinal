@@ -8,7 +8,10 @@
 </head>
 
 <body>
-    <h1>Partida: <span th:text="${idUltimaPartidaCadastrada}"></span></h1>
+    {% comment %} <h1>Partida: <span th:text="${idUltimaPartidaCadastrada}"></span></h1> {% endcomment %}
+    <h1>Partida: <span th:text="${partida.partidaId}"></span></h1>
+    <h1>Saldo do banco:$ <span th:text="${partida.saldoBanco}"></span></h1>
+    <h1>Conta: <span th:text="${partida.contaQueJoga.nomeConta}"></span></h1>
 </body>
 
 </html>
