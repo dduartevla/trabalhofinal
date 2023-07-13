@@ -14,13 +14,31 @@
         body {
             background-color: #9DD8EE;
         }
+        .btn-orange {
+            background-color: #E29623;
+            color: white;
+            border-color: #E29623;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+        }
+        .btn-blue {
+            background-color: #2D86EC;
+            color: white;
+            border-color: #2D86EC;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+        }
 </style>
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')" />
-    <a th:href="@{/escolherPartida.html}"><button>Escolher uma Partida</button></a>
+    <a th:href="@{/escolherPartida.html}"><button class="btn-orange rounded" type="submit">Escolher uma partida</button></a>
     </br>
-    <a th:href="@{/criaNovaPartida.html}"><button>Criar uma Partida</button></a><br><br>
+    <a th:href="@{/criaNovaPartida.html}"><button class="btn-blue rounded" type="submit">Criar uma partida</button></a><br><br>
     <footer th:replace="layout-padrao.html::footer" />
 </body>
 
