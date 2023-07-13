@@ -2,6 +2,7 @@ package br.ufuf.dcc193.debora.trabalhofinal.trabalhofinal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import java.util.List;
 import jakarta.validation.Valid;
 
 @Controller
+@Transactional
 public class PartidaController {
 
     Partida partida;
@@ -53,7 +55,8 @@ public class PartidaController {
         return mv;
     }
 
-    @GetMapping("/escolherPartida{id}")
+    @Transactional
+    @GetMapping("/escolherPartida{i}")
     public ModelAndView escolherPartida() {
         List<Partida> listaDePartidas = partidaRep.findAll();
         ModelAndView mv = new ModelAndView();
@@ -62,10 +65,12 @@ public class PartidaController {
         return mv;
     }
 
-    @PostMapping("/escolherPartida{id}")
-    public ModelAndView escolherPartida(@PathVariable Long id) {
+    @Transactional
+    @GetMapping("/escolheuPartida/{id}")
+    public ModelAndView escolheuPartida(@PathVariable Long id) {
 
         this.partida = partidaRep.findById(id.toString());
+        System.out.println("OLHA AQUI->->->->->: " + id.toString());
         ModelAndView mv;
         return mv = criaConta(partida);
     }
@@ -106,6 +111,7 @@ public class PartidaController {
         return mv;
     }
 
+    @Transactional
     @PostMapping("/criaNovaConta")
     public ModelAndView criaConta(Partida partida, BindingResult bindingResult, @RequestParam String nomeConta,
             @RequestParam String senhaConta) {
@@ -162,6 +168,7 @@ public class PartidaController {
         partida.setNomeConta(nomeConta);
         novaConta.setPartida(partida);
         partidaRep.save(partida);
+        repConta.save(novaConta);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
