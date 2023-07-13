@@ -15,7 +15,7 @@
         background-color: #9DD8EE;
     }
     .button-container {
-            text-align: center;
+        text-align: center;
     }
     .btn-blue {
         background-color: #2D86EC;
@@ -43,10 +43,11 @@
             <strong th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></strong>
         </div>
         <div>
-            <label for="nomeConta">Nome da Conta:       </label>
+            <label for="nomeConta">Nome da Conta:</label>
             <input type="text" name="nomeConta" id="nomeConta">
             <strong th:if="${#fields.hasErrors('nomeConta')}" th:errors="*{nomeConta}"></strong>
         </div>
+        <br>
         <div>
             <label for="ePrivada">Partida Privada:</label>
             <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
