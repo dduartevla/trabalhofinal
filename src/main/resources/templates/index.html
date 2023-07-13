@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout-padrao.html::head(titulo='Trabalho DCC193')" />
+<head th:replace="layout-padrao.html::head(titulo='Play Money')" />
 
 <style>
         body {
@@ -35,7 +35,7 @@
 </style>
 
 <body>
-    <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')" />
+    <header th:replace="layout-padrao.html::header(titulo='Play Money')" /><br>
     <a th:href="@{/escolherPartida.html}"><button class="btn-orange rounded" type="submit">Escolher uma partida</button></a>
     </br>
     <a th:href="@{/criaNovaPartida.html}"><button class="btn-blue rounded" type="submit">Criar uma partida</button></a><br><br>
