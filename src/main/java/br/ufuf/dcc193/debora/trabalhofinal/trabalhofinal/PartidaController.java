@@ -21,9 +21,9 @@ public class PartidaController {
 
     Partida partida;
 
-    public String getUltimoIdPartida(List <Partida> listaDePartidas){
-        
-        Partida ultimaPartida = listaDePartidas.get(listaDePartidas.size()-1);
+    public String getUltimoIdPartida(List<Partida> listaDePartidas) {
+
+        Partida ultimaPartida = listaDePartidas.get(listaDePartidas.size() - 1);
         String ultimoIdPartida = ultimaPartida.getPartidaId();
         return ultimoIdPartida;
     }
@@ -73,18 +73,18 @@ public class PartidaController {
     }
 
     @Transactional
-    @GetMapping("/escolheuPartida/{id}")
-    public ModelAndView escolheuPartida(@PathVariable Long id) {
-
-        this.partida = partidaRep.findById(id.toString());
-        System.out.println("OLHA AQUI->->->->->: " + id.toString());
-        ModelAndView mv;
-        return mv = criaConta(partida);
+    @PostMapping("/escolheuPartida")
+    public ModelAndView escolheuPartida(@RequestParam("partidaId") String partidaId) {
+        Long partidaIdLong = Long.valueOf(partidaId);
+        System.out.println("ENTROUUUUUU>>>>>>>>>>>>");
+        this.partida = partidaRep.findById(partidaId);
+        System.out.println("OLHA AQUI->->->->->: " + partidaId);
+        return criaConta(partida);
     }
 
     @GetMapping("/partidaEmProgresso")
     public ModelAndView criaPartidaGet() {
-        List <Partida> listaDePartidas = partidaRep.findAll();
+        List<Partida> listaDePartidas = partidaRep.findAll();
         String idUltimaPartidaCadastrada = getUltimoIdPartida(listaDePartidas);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");

@@ -10,48 +10,58 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
-    }
-    body {
         background-color: #9DD8EE;
     }
-    .button-container {
-            text-align: center;
-    }
-    .Partida{
+
+    .partida {
         font-weight: bold;
+    }
+
+    .button-container {
+        text-align: center;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
     }
 </style>
 
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Escolha uma Partida para Jogar')"></header>
 
-    <form action="">
-        <label class="Partida" for="partida">Escolha um id específico para partida</label>
-        <select name="partida" id="partida">
-            <option th:each="partida : ${listaDePartidas}" th:value="${partida.partidaId}" th:text="${partida.id + ' | '  + partida.partidaId}">
-            </option>            
+    <form method="post" th:action="@{/escolheuPartida}">
+        <label class="partida" for="partidaId">Escolha uma partida:</label>
+        <select name="partidaId" id="partidaId">
+            <option th:each="partida : ${listaDePartidas}" th:value="${partida.id}" th:text="${partida.id + ' | ' + partida.partidaId}"></option>
         </select>
+        <button type="submit">Entrar na Partida</button>
     </form>
     
-    <div th:each="partida : ${listaDePartidas}">
-        <a th:href="@{/escolheuPartida/{id}(id=*{partida.id})}">Entrar na Partida</a>
-    </div>
     
-    <br>
+    
 
     <table>
         <thead>
             <tr>
-                <th>Id |</th>
-                <th>Id da partida</th>
-                <th>Entrar na Partida</th>
+                <th>Id</th>
+                <th>Id da Partida</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="partida : ${listaDePartidas}">
                 <td th:text="${partida.id}"></td>
                 <td th:text="${partida.partidaId}"></td>
-                <td></td>
             </tr>
         </tbody>
     </table>
