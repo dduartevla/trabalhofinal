@@ -27,27 +27,42 @@
         border-radius: 0.25rem;
     }
 </style>
-
 <body>
     <header th:replace="layout-padrao.html::header(titulo='Play Money')"></header>
+    <br>
     <form method="get" action="/criaNovaConta" th:object="${partida}">
-        <div>
+      <div class="row">
+        <div class="col-md-6">
+          <div>
             <label for="saldoBanco">Saldo inicial do Banco: </label>
-            <input type="number" th:field="*{saldoBanco}" id="saldoBanco">
-            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br>
-        </div><br>
-        <div>
+            <input type="number" th:field="*{saldoBanco}" id="saldoBanco" class="form-control">
+            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}" class="error-message"></strong>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
             <label for="senhaPartida">Senha da Partida:</label>
-            <input type="password" th:field="*{senhaPartida}" id="senhaPartida">
-            <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}"></strong>
-        </div><br>
-        <div>
+            <input type="password" th:field="*{senhaPartida}" id="senhaPartida" class="form-control">
+            <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}" class="error-message"></strong>
+          </div>
+        </div>
+      </div>
+  <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div>
             <label for="ePrivada">Partida Privada:</label>
             <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
+          </div>
         </div>
-        <br>
-        <button class="btn-blue rounded" type="submit">Criar Partida</button><br><br>
+      </div>
+  <br>
+      <div class="row">
+        <div class="col-md-12" text-center>
+            <button class="btn-blue rounded" type="submit">Criar Partida</button>
+        </div>
+      </div>
     </form>
-</body>
+  </body>
 
 </html>
