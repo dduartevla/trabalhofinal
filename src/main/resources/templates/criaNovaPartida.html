@@ -34,14 +34,14 @@
       <div class="row">
         <div class="col-md-6">
           <div>
-            <label for="saldoBanco">Saldo inicial do Banco: </label>
+            <label for="saldoBanco">Saldo inicial do banco: </label>
             <input type="number" th:field="*{saldoBanco}" id="saldoBanco" class="form-control">
             <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}" class="error-message"></strong>
           </div>
         </div>
         <div class="col-md-6">
           <div>
-            <label for="senhaPartida">Senha da Partida:</label>
+            <label for="senhaPartida">Senha da partida:</label>
             <input type="password" th:field="*{senhaPartida}" id="senhaPartida" class="form-control">
             <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}" class="error-message"></strong>
           </div>
