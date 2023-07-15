@@ -4,15 +4,21 @@
 <head th:replace="layout-padrao.html::head(titulo='Partida em progresso')" />
 
 <style>
-
     .partidaInfo{
         font-size: 19px;
     }
-
+    .btn-blue {
+        background-color: #2D86EC;
+        color: white;
+        border-color: #2D86EC;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+    }
 </style>
 
 <body>
-
     <div class="container" th:object="${partida}">
         <div class="row border-black text-center">
             <div class="border border-2 border-black col-4">
@@ -39,7 +45,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
