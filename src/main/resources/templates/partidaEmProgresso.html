@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Partida em Progresso</title>
-</head>
+<head th:replace="layout-padrao.html::head(titulo='Partida em progresso')" />
+
+<style>
+
+    .partidaInfo{
+        font-size: 19px;
+    }
+
+</style>
 
 <body>
     <h1>Partida: <span th:text="${partida.partidaId}"></span></h1>
