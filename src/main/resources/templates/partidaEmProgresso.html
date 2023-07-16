@@ -28,11 +28,12 @@
                 <div class="p-2">
                     <h1 class="partidaInfo">Montante:</h1>
                 </div>
-                <div class="p-2">
-                    <label for="contaDestino">Conta Destino:</label>
-                    <select name="contaDestino" id="contaDestino">
-                        <option th:each="conta : ${listaDeContas}" th:value="${conta.nomeConta}" th:text="${conta.nomeConta}"></option>
-                    </select>
+                <div class="row p-2">
+                    <div class="col-6">
+                        <label class="conta_destino" for="contaDestino">Conta Destino:</label>
+                        <select name="contaDestino" id="contaDestino" class="form-select-sm m-1">
+                            <option th:each="conta : ${listaDeContas}" th:value="${conta.nomeConta}" th:text="${conta.nomeConta}"></option>                        
+                        </select>
                     <button type="submit">Receber</button>
                     <button type="submit">Pagar</button>
                 </div>
