@@ -75,7 +75,6 @@ public class PartidaController {
     @Transactional
     @PostMapping("/escolheuPartida")
     public ModelAndView escolheuPartida(@RequestParam("partidaId") String partidaId) {
-        Long partidaIdLong = Long.valueOf(partidaId);
         System.out.println("ENTROUUUUUU>>>>>>>>>>>>");
         this.partida = partidaRep.findById(partidaId);
         System.out.println("OLHA AQUI->->->->->: " + partidaId);
