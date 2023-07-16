@@ -179,6 +179,7 @@ public class PartidaController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
+        mv.addObject("contas", contas);
         return mv;
     }
 }
