@@ -17,14 +17,14 @@ public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Este campo é obrigatório.")
+    // @NotBlank(message = "Este campo é obrigatório.")
     private String gameId;
     @NotBlank(message = "A conta que envia não pode estar em branco.")
     private String contaEnvia;
     @NotBlank(message = "A conta que recebe não pode estar em branco.")
     private String contaRecebe;
     private LocalDateTime dateTime;
-    @NotNull(message = "Este campo é obrigatório.")
+    // @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double valor;
 
