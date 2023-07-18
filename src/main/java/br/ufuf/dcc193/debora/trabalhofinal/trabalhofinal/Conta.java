@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +20,7 @@ public class Conta {
     private String nomeConta;
     @ManyToOne
     private Partida partida;
-    @OneToMany(mappedBy = "contaEnvia", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "contaEnvia")
     private List<Transacao> transacoes;
     private Double saldo;
     private String senhaConta;
