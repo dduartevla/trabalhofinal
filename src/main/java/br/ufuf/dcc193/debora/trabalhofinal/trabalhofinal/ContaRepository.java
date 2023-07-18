@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long> {
+    Conta findBynomeConta(String nomeConta);
 
+    boolean existsByNomeConta(String nomeConta);
 }
