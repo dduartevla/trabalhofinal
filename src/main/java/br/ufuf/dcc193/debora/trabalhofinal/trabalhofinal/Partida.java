@@ -61,6 +61,20 @@ public class Partida {
         setPartidaRandomId();
     }
 
+    public Conta findConta(String conta) {
+        Conta nConta = new Conta();
+
+        for (int i = 0; i < this.contas.size(); i++) {
+            if (this.contas.get(i).getNomeConta().equals(conta)) {
+                System.out.println("achou a conta: " + conta);
+
+                return this.contas.get(i);
+            }
+        }
+        System.out.println("não achou a conta");
+        return null;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

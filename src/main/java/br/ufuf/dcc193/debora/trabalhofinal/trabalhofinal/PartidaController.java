@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class PartidaController {
 
     @Autowired
     ContaRepository repConta;
+
+    @Autowired
+    TransacaoRepository repTransacao;
 
     @GetMapping({ "", "/", "/index.html" })
     public String index() {
@@ -172,14 +176,89 @@ public class PartidaController {
         novaConta.setSenhaConta(senhaConta);
         novaConta.setSaldo(25000.00);
         partida.setContaQueJoga(novaConta);
+        this.partida.setContaQueJoga(novaConta);
         partida.getContas().add(novaConta);
         partida.setNomeConta(nomeConta);
         novaConta.setPartida(partida);
         partidaRep.save(partida);
         repConta.save(novaConta);
+
+        for (int i = 0; i < partida.getContas().size(); i++) {
+            System.out.println(partida.getContas().get(i).getNomeConta());
+        }
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
         return mv;
+    }
+
+    @PostMapping("/transacao")
+    public ModelAndView trasacao(Partida partida, BindingResult bindingResult, String contaDestino, String valor) {
+        ModelAndView mv = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView mv1 = new ModelAndView();
+            mv1.setViewName("partidaEmProgresso.html");
+            mv1.addObject("partida", partida);
+            return mv1;
+        }
+
+        if (contaDestino == null || contaDestino.trim().isEmpty()) {
+            bindingResult.rejectValue("contaDestno", "NotEmpty", "A conta de destino é obrigatória");
+            ModelAndView mv2 = new ModelAndView("partidaEmProgresso.html");
+            mv2.addObject("partida", partida);
+            return mv2;
+        }
+
+        if (valor == null || valor.trim().isEmpty()) {
+            bindingResult.rejectValue("senhaConta", "NotEmpty", "A senha é obrigatória");
+            ModelAndView mv3 = new ModelAndView("partidaEmProgresso.html.html");
+            mv3.addObject("partida", partida);
+            return mv3;
+        }
+
+        // cria nova Transação
+        Transacao novaTransacao = new Transacao();
+
+        // define o valor da transação
+        Double dvalor = Double.parseDouble(valor.trim());
+        novaTransacao.setValor(dvalor);
+
+        partida = this.partida;
+
+        // define a conta que está pagando
+        novaTransacao.setContaEnvia(this.partida.getContaQueJoga().getNomeConta());
+        // atualiza saldo da conta que paga
+        partida.getContaQueJoga().setSaldo(partida.getContaQueJoga().getSaldo() - dvalor);
+
+        // define a conta que recebe
+        novaTransacao.setContaRecebe(contaDestino.trim());
+        // atualiza o saldo da conta que recebe
+        System.out.println("conta destino: " + contaDestino);
+
+        for (int i = 0; i < partida.getContas().size(); i++) {
+            System.out.println(partida.getContas().get(i).getNomeConta());
+        }
+
+        Conta conta = partida.findConta(contaDestino.trim());
+        conta.setSaldo(conta.getSaldo() + dvalor);
+
+        // define a data e hora
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        novaTransacao.setDateTime(dataHoraAtual);
+
+        // adiciona transação na partida e nas contas (temporario);
+        partida.getTransacoes().add(novaTransacao);
+        repTransacao.save(novaTransacao);
+        partida.getContaQueJoga().getTransacoes().add(novaTransacao);
+        conta.getTransacoes().add(novaTransacao);
+
+        partidaRep.save(partida);
+
+        mv.setViewName("partidaEmProgresso.html");
+        mv.addObject("partida", partida);
+        return mv;
+
     }
 }
