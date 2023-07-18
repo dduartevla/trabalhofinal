@@ -139,7 +139,9 @@ public class Partida {
     }
 
     public List<Transacao> getTransacoes() {
-        // implementar uma ordenação aqui
+        if (this.transacoes != null) {
+            this.transacoes.sort((t1, t2) -> t1.getDateTime().compareTo(t2.getDateTime()));
+        }
         return transacoes;
     }
 

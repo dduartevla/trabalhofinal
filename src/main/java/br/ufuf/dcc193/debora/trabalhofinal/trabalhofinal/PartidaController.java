@@ -46,6 +46,10 @@ public class PartidaController {
     @GetMapping("/criaNovaPartida.html")
     public ModelAndView criaPartida() {
         partida = new Partida();
+        Conta contaBanco = new Conta();
+        contaBanco.setNomeConta("Banco");
+        contaBanco.setSaldo(partida.getSaldoBanco());
+        repConta.save(contaBanco);
         ModelAndView mv = new ModelAndView();
         mv.addObject("partida", partida);
         mv.setViewName("criaNovaPartida");
@@ -230,12 +234,12 @@ public class PartidaController {
         partida = this.partida;
 
         // define a conta que está pagando
-        novaTransacao.setContaEnvia(this.partida.getContaQueJoga().getNomeConta());
+        novaTransacao.setContaEnvia(repConta.findBynomeConta(partida.getContaQueJoga().getNomeConta()));
         // atualiza saldo da conta que paga
         partida.getContaQueJoga().setSaldo(partida.getContaQueJoga().getSaldo() - dvalor);
 
         // define a conta que recebe
-        novaTransacao.setContaRecebe(contaDestino.trim());
+        novaTransacao.setContaRecebe(repConta.findBynomeConta(contaDestino.trim()));
         // atualiza o saldo da conta que recebe
         System.out.println("conta destino: " + contaDestino);
 
@@ -266,5 +270,80 @@ public class PartidaController {
         mv.addObject("partida", partida);
         return mv;
 
+    }
+
+    @Transactional
+    @PostMapping("/transacaoBanco")
+    public ModelAndView transacaoBanco(@RequestParam String acao, Partida partida, BindingResult bindingResult,
+            String valor) {
+        ModelAndView mv = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView mv1 = new ModelAndView();
+            mv1.setViewName("partidaEmProgresso.html");
+            mv1.addObject("partida", partida);
+            return mv1;
+        }
+
+        if (valor == null || valor.trim().isEmpty()) {
+            bindingResult.rejectValue("senhaConta", "NotEmpty", "A senha é obrigatória");
+            ModelAndView mv3 = new ModelAndView("partidaEmProgresso.html.html");
+            mv3.addObject("partida", partida);
+            return mv3;
+        }
+
+        // cria nova Transação
+        Transacao novaTransacao = new Transacao();
+
+        // define o valor da transação
+        Double dvalor = Double.parseDouble(valor.trim());
+        novaTransacao.setValor(dvalor);
+
+        partida = this.partida;
+
+        // define a data e hora
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        novaTransacao.setDateTime(dataHoraAtual);
+
+        Conta contaBanco = repConta.findBynomeConta("Banco");
+
+        if (acao.equals("receber")) {
+            // define quem paga e quem recebe
+            novaTransacao.setContaEnvia(repConta.findBynomeConta(partida.getContaQueJoga().getNomeConta()));
+            novaTransacao.setContaRecebe(contaBanco);
+            // atualiza saldo da conta que paga
+            partida.getContaQueJoga().setSaldo(partida.getContaQueJoga().getSaldo() + dvalor);
+
+            partida.setSaldoBanco(partida.getSaldoBanco() - dvalor);
+
+            partida.getTransacoes().add(novaTransacao);
+            repTransacao.save(novaTransacao);
+            partida.getContaQueJoga().getTransacoes().add(novaTransacao);
+
+        } else if (acao.equals("pagar")) {
+            // define quem paga e quem recebe
+            novaTransacao.setContaRecebe(repConta.findBynomeConta(partida.getContaQueJoga().getNomeConta()));
+            novaTransacao.setContaEnvia(contaBanco);
+            // atualiza saldo da conta que paga
+            partida.getContaQueJoga().setSaldo(partida.getContaQueJoga().getSaldo() - dvalor);
+
+            partida.setSaldoBanco(partida.getSaldoBanco() + dvalor);
+
+            partida.getTransacoes().add(novaTransacao);
+            repTransacao.save(novaTransacao);
+            partida.getContaQueJoga().getTransacoes().add(novaTransacao);
+        }
+
+        System.out.println("Partida Controller 335");
+
+        try {
+            partidaRep.save(partida);
+        } catch (Exception e) {
+            System.out.println("houve");
+        }
+
+        mv.setViewName("partidaEmProgresso.html.html");
+        mv.addObject("partida", partida);
+        return mv;
     }
 }
