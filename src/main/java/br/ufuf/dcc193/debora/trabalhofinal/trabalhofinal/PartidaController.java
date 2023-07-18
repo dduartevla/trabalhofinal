@@ -36,6 +36,7 @@ public class PartidaController {
 
     @Autowired
     TransacaoRepository repTransacao;
+    List<Transacao> listaTransacoes;
     Partida partida;
     List<Conta> contas;
 
@@ -278,8 +279,8 @@ public class PartidaController {
         mv.addObject("novoSaldo", novoSaldo);
         mv.addObject("dataFormatada", dataFormatada);
         return mv;
-
-    }
+        mv.addObject("partida", partida);
+        mv.addObject("listaTransacoes", listaTransacoes);
 
     @Transactional
     @PostMapping("/transacaoBanco")
