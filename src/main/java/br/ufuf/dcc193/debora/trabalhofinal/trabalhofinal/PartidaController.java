@@ -304,9 +304,6 @@ public class PartidaController {
 
         partida = this.partida;
 
-        // define a data e hora
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        novaTransacao.setDateTime(dataHoraAtual);
 
         Conta contaBanco = repConta.findBynomeConta("Banco");
 
