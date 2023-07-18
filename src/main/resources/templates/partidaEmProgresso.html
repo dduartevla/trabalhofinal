@@ -75,6 +75,10 @@
                     </div>
                 </form>
             </div>
+            <h1 class="partidaInfo">Saldo da conta de Origem: <span class="text-primary" th:text="${partida.contaQueJoga.saldo}"></span></h1>
+            <h1 class="partidaInfo">Saldo da Conta de Destino: <span class="text-primary" th:text="${novoSaldo}"></span></h1>
+            <h1 class="partidaInfo">Horário da Transação: <span class="text-primary" th:text="${dataFormatada}"></span></h1>
+
         </div>
     </div>
 </body>

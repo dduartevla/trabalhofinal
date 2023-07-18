@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -251,6 +252,7 @@ public class PartidaController {
         Conta conta = repConta.findBynomeConta(contaDestino.trim());
         // partida.findConta(contaDestino.trim());
         conta.setSaldo(conta.getSaldo() + dvalor);
+        Double novoSaldo = conta.getSaldo();
 
         System.out.println("PartidaController 248");
 
@@ -264,11 +266,17 @@ public class PartidaController {
         repTransacao.save(novaTransacao);
         partida.getContaQueJoga().getTransacoes().add(novaTransacao);
         conta.getTransacoes().add(novaTransacao);
+        LocalDateTime horarioTransacao = novaTransacao.getDateTime();
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = horarioTransacao.format(formatoData);
+
         System.out.println("PartidaController 260");
         partidaRep.save(partida);
         System.out.println("PartidaController 262");
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
+        mv.addObject("novoSaldo", novoSaldo);
+        mv.addObject("dataFormatada", dataFormatada);
         return mv;
 
     }
