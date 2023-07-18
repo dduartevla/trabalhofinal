@@ -25,7 +25,7 @@ public class Partida {
     private Long id;
     @NotBlank(message = "Campo não pode estar em branco.")
     private String partidaId;
-    @OneToMany(mappedBy = "partida", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "partida")
     private List<Transacao> transacoes;
     @OneToMany(mappedBy = "partida", fetch = FetchType.EAGER)
     private List<Conta> contas;
@@ -48,11 +48,7 @@ public class Partida {
             Conta contaQueJoga) {
         this.id = id;
         this.partidaId = partidaId;
-        if (transacoes == null) {
-            this.transacoes = new ArrayList<Transacao>();
-        } else {
-            this.transacoes = transacoes;
-        }
+        this.transacoes = transacoes;
         this.contas = contas;
         this.saldoBanco = saldoBanco;
         this.ePrivada = ePrivada;
@@ -63,20 +59,6 @@ public class Partida {
     public Partida() {
         this(null, null, new ArrayList<Transacao>(), new ArrayList<Conta>(), null, false, null, null);
         setPartidaRandomId();
-    }
-
-    public Conta findConta(String conta) {
-        Conta nConta = new Conta();
-
-        for (int i = 0; i < this.contas.size(); i++) {
-            if (this.contas.get(i).getNomeConta().equals(conta)) {
-                System.out.println("achou a conta: " + conta);
-
-                return this.contas.get(i);
-            }
-        }
-        System.out.println("não achou a conta");
-        return null;
     }
 
     public void setId(Long id) {
@@ -139,9 +121,7 @@ public class Partida {
     }
 
     public List<Transacao> getTransacoes() {
-        if (this.transacoes != null) {
-            this.transacoes.sort((t1, t2) -> t1.getDateTime().compareTo(t2.getDateTime()));
-        }
+        // implementar uma ordenação aqui
         return transacoes;
     }
 

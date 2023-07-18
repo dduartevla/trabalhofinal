@@ -1,14 +1,12 @@
 package br.ufuf.dcc193.debora.trabalhofinal.trabalhofinal;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -19,14 +17,14 @@ public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // @NotBlank(message = "Este campo é obrigatório.")
+    @NotBlank(message = "Este campo é obrigatório.")
     private String gameId;
-    @OneToOne
-    private Conta contaEnvia;
-    @OneToOne
-    private Conta contaRecebe;
+    @NotBlank(message = "A conta que envia não pode estar em branco.")
+    private String contaEnvia;
+    @NotBlank(message = "A conta que recebe não pode estar em branco.")
+    private String contaRecebe;
     private LocalDateTime dateTime;
-    // @NotNull(message = "Este campo é obrigatório.")
+    @NotNull(message = "Este campo é obrigatório.")
     @PositiveOrZero(message = "valor deve ser maior ou igual a zero.")
     private Double valor;
 
@@ -35,12 +33,9 @@ public class Transacao {
 
     public Transacao() {
         this(null, null, null, null, 0.0);
-        
-        this.dateTime = LocalDateTime.now();
-        this.setDateTime(this.dateTime);
     }
 
-    public Transacao(String gameId, Conta contaEnvia, Conta contaRecebe, LocalDateTime dateTime, Double valor) {
+    public Transacao(String gameId, String contaEnvia, String contaRecebe, LocalDateTime dateTime, Double valor) {
         this.gameId = gameId;
         this.contaEnvia = contaEnvia;
         this.contaRecebe = contaRecebe;
@@ -56,19 +51,19 @@ public class Transacao {
         this.gameId = gameId;
     }
 
-    public Conta getContaEnvia() {
+    public String getContaEnvia() {
         return contaEnvia;
     }
 
-    public void setContaEnvia(Conta contaEnvia) {
+    public void setContaEnvia(String contaEnvia) {
         this.contaEnvia = contaEnvia;
     }
 
-    public Conta getContaRecebe() {
+    public String getContaRecebe() {
         return contaRecebe;
     }
 
-    public void setContaRecebe(Conta contaRecebe) {
+    public void setContaRecebe(String contaRecebe) {
         this.contaRecebe = contaRecebe;
     }
 
@@ -79,15 +74,7 @@ public class Transacao {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-    
-    public String getDataHoraTransacao(){
-        
-        LocalDateTime dataHoraTransacao = this.getDateTime();
-        DateTimeFormatter formatoDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String dataFormatada = dataHoraTransacao.format(formatoDataHora);
-        return dataFormatada;
-    }
-    
+
     public Double getValor() {
         return valor;
     }

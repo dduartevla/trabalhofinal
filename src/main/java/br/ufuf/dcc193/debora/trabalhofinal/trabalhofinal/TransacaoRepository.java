@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
+    Transacao findById(String id);
 }
