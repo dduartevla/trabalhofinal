@@ -92,13 +92,24 @@ public class PartidaController {
         return criaConta(partida);
     }
 
+    @PostMapping("/escolherConta{i}")
+    public ModelAndView escolherConta() {
+        List<Conta> listaDeContas = repConta.findAll();
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("escolherConta.html");
+        mv.addObject("listaDeContas", listaDeContas);
+        return mv;
+    }
+
     @GetMapping("/partidaEmProgresso")
     public ModelAndView criaPartidaGet() {
         List<Partida> listaDePartidas = partidaRep.findAll();
+        List <Conta> listaDeContas = repConta.findAll();
         String idUltimaPartidaCadastrada = getUltimoIdPartida(listaDePartidas);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("idUltimaPartidaCadastrada", idUltimaPartidaCadastrada);
+        mv.addObject("partida", listaDeContas);
         return mv;
     }
 
@@ -108,6 +119,7 @@ public class PartidaController {
         if (bindingResult.hasErrors()) {
             ModelAndView mv = new ModelAndView();
             mv.addObject("partida", partida);
+            
             return mv;
         }
 
