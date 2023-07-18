@@ -253,13 +253,8 @@ public class PartidaController {
         Conta conta = repConta.findBynomeConta(contaDestino.trim());
         // partida.findConta(contaDestino.trim());
         conta.setSaldo(conta.getSaldo() + dvalor);
-        Double novoSaldo = conta.getSaldo();
 
         System.out.println("PartidaController 248");
-
-        // define a data e hora
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        novaTransacao.setDateTime(dataHoraAtual);
 
         System.out.println("PartidaController 254");
         // adiciona transação na partida e nas contas (temporario);
@@ -267,20 +262,18 @@ public class PartidaController {
         repTransacao.save(novaTransacao);
         partida.getContaQueJoga().getTransacoes().add(novaTransacao);
         conta.getTransacoes().add(novaTransacao);
-        LocalDateTime horarioTransacao = novaTransacao.getDateTime();
-        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String dataFormatada = horarioTransacao.format(formatoData);
 
         System.out.println("PartidaController 260");
         partidaRep.save(partida);
         System.out.println("PartidaController 262");
         mv.setViewName("partidaEmProgresso.html");
-        mv.addObject("partida", partida);
-        mv.addObject("novoSaldo", novoSaldo);
-        mv.addObject("dataFormatada", dataFormatada);
-        return mv;
+
+        listaTransacoes = repTransacao.findAll();
+
         mv.addObject("partida", partida);
         mv.addObject("listaTransacoes", listaTransacoes);
+        return mv;
+    }
 
     @Transactional
     @PostMapping("/transacaoBanco")
