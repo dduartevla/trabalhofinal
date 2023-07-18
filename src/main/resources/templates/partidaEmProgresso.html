@@ -79,6 +79,21 @@
                 </form>
             </div>
         </div>
+            <div class="row border border-black border-2">
+                <div class="col-6 border-2 border-black border-end">
+                    <h1 class="text-center m-3">Histórico de Transações</h1>
+                    <div th:each="transacao : ${listaTransacoes}">
+                        <h1 class="partidaInfo">Saldo da conta de Origem: <span class="text-primary" th:text="${transacao.getContaEnvia().getSaldo()}"></span></h1>
+                        <h1 class="partidaInfo">Saldo da Conta de Destino: <span class="text-primary" th:text="${transacao.getContaRecebe().getSaldo()}"></span></h1>
+                        <h1 class="partidaInfo">Horário da Transação: <span class="text-primary" th:text="${transacao.getDataHoraTransacao()}"></span></h1>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-6">
+                    Vai entrar texto aki
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

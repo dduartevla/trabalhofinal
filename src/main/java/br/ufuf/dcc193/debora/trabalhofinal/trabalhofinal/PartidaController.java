@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class PartidaController {
 
     @Autowired
     TransacaoRepository repTransacao;
+    List<Transacao> listaTransacoes;
     Partida partida;
     List<Conta> contas;
 
@@ -254,23 +256,23 @@ public class PartidaController {
 
         System.out.println("PartidaController 248");
 
-        // define a data e hora
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        novaTransacao.setDateTime(dataHoraAtual);
-
         System.out.println("PartidaController 254");
         // adiciona transação na partida e nas contas (temporario);
         partida.getTransacoes().add(novaTransacao);
         repTransacao.save(novaTransacao);
         partida.getContaQueJoga().getTransacoes().add(novaTransacao);
         conta.getTransacoes().add(novaTransacao);
+
         System.out.println("PartidaController 260");
         partidaRep.save(partida);
         System.out.println("PartidaController 262");
         mv.setViewName("partidaEmProgresso.html");
-        mv.addObject("partida", partida);
-        return mv;
 
+        listaTransacoes = repTransacao.findAll();
+
+        mv.addObject("partida", partida);
+        mv.addObject("listaTransacoes", listaTransacoes);
+        return mv;
     }
 
     @Transactional
@@ -302,9 +304,6 @@ public class PartidaController {
 
         partida = this.partida;
 
-        // define a data e hora
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        novaTransacao.setDateTime(dataHoraAtual);
 
         Conta contaBanco = repConta.findBynomeConta("Banco");
 
