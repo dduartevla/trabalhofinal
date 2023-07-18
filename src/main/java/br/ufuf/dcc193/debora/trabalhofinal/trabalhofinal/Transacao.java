@@ -79,7 +79,15 @@ public class Transacao {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-
+    
+    public String getDataHoraTransacao(){
+        
+        LocalDateTime dataHoraTransacao = this.getDateTime();
+        DateTimeFormatter formatoDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = dataHoraTransacao.format(formatoDataHora);
+        return dataFormatada;
+    }
+    
     public Double getValor() {
         return valor;
     }
