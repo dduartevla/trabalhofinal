@@ -1,6 +1,7 @@
 package br.ufuf.dcc193.debora.trabalhofinal.trabalhofinal;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +35,9 @@ public class Transacao {
 
     public Transacao() {
         this(null, null, null, null, 0.0);
+        
+        this.dateTime = LocalDateTime.now();
+        this.setDateTime(this.dateTime);
     }
 
     public Transacao(String gameId, Conta contaEnvia, Conta contaRecebe, LocalDateTime dateTime, Double valor) {
