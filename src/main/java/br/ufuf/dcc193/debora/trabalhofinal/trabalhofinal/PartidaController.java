@@ -264,7 +264,6 @@ public class PartidaController {
         conta.getTransacoes().add(novaTransacao);
 
         System.out.println("PartidaController 260");
-        partidaRep.save(partida);
         System.out.println("PartidaController 262");
         mv.setViewName("partidaEmProgresso.html");
 
@@ -303,7 +302,6 @@ public class PartidaController {
         novaTransacao.setValor(dvalor);
 
         partida = this.partida;
-
 
         Conta contaBanco = repConta.findBynomeConta("Banco");
 
