@@ -25,7 +25,7 @@ public class Partida {
     private Long id;
     @NotBlank(message = "Campo não pode estar em branco.")
     private String partidaId;
-    @OneToMany(mappedBy = "partida")
+    @OneToMany(mappedBy = "partida", fetch = FetchType.EAGER)
     private List<Transacao> transacoes;
     @OneToMany(mappedBy = "partida", fetch = FetchType.EAGER)
     private List<Conta> contas;
@@ -48,7 +48,11 @@ public class Partida {
             Conta contaQueJoga) {
         this.id = id;
         this.partidaId = partidaId;
-        this.transacoes = transacoes;
+        if (transacoes == null) {
+            this.transacoes = new ArrayList<Transacao>();
+        } else {
+            this.transacoes = transacoes;
+        }
         this.contas = contas;
         this.saldoBanco = saldoBanco;
         this.ePrivada = ePrivada;

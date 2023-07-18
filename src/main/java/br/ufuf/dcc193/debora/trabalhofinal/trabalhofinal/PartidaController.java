@@ -144,7 +144,6 @@ public class PartidaController {
             return mv;
         }
 
-        
         this.contas = partida.getContas();
 
         // verifica se já existe uma conta com esse nome
@@ -180,13 +179,14 @@ public class PartidaController {
         partida.setNomeConta(nomeConta);
         novaConta.setPartida(partida);
         partidaRep.save(partida);
-        repConta.save(novaConta);
+        if (repConta.findBynomeConta(nomeConta) == null)
+            repConta.save(novaConta);
 
         for (int i = 0; i < partida.getContas().size(); i++) {
             System.out.println(partida.getContas().get(i).getNomeConta());
         }
 
-        List <Conta> listaDeContas = repConta.findAll();
+        List<Conta> listaDeContas = repConta.findAll();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
@@ -194,6 +194,7 @@ public class PartidaController {
         return mv;
     }
 
+    @Transactional
     @PostMapping("/transacao")
     public ModelAndView trasacao(Partida partida, BindingResult bindingResult, String contaDestino, String valor) {
         ModelAndView mv = new ModelAndView();
@@ -242,21 +243,25 @@ public class PartidaController {
             System.out.println(partida.getContas().get(i).getNomeConta());
         }
 
-        Conta conta = partida.findConta(contaDestino.trim());
+        Conta conta = repConta.findBynomeConta(contaDestino.trim());
+        // partida.findConta(contaDestino.trim());
         conta.setSaldo(conta.getSaldo() + dvalor);
+
+        System.out.println("PartidaController 248");
 
         // define a data e hora
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         novaTransacao.setDateTime(dataHoraAtual);
 
+        System.out.println("PartidaController 254");
         // adiciona transação na partida e nas contas (temporario);
         partida.getTransacoes().add(novaTransacao);
         repTransacao.save(novaTransacao);
         partida.getContaQueJoga().getTransacoes().add(novaTransacao);
         conta.getTransacoes().add(novaTransacao);
-
+        System.out.println("PartidaController 260");
         partidaRep.save(partida);
-
+        System.out.println("PartidaController 262");
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
         return mv;
