@@ -27,27 +27,42 @@
         border-radius: 0.25rem;
     }
 </style>
-
 <body>
-    <header th:replace="layout-padrao.html::header(titulo='Trabalho DCC193')"></header>
+    <header th:replace="layout-padrao.html::header(titulo='Criar nova partida')"></header>
+    <br>
     <form method="get" action="/criaNovaConta" th:object="${partida}">
-        <div>
-            <label for="saldoBanco">Saldo inicial do Banco: </label>
-            <input type="number" th:field="*{saldoBanco}" id="saldoBanco">
-            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}"></strong><br>
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <label for="saldoBanco">Saldo inicial do banco: </label>
+            <input type="number" th:field="*{saldoBanco}" id="saldoBanco" class="form-control">
+            <strong th:if="${#fields.hasErrors('saldoBanco')}" th:errors="*{saldoBanco}" class="error-message"></strong>
+          </div>
         </div>
-        <div>
+        <div class="col-md-6">
+          <div>
+            <label for="senhaPartida">Senha da partida:</label>
+            <input type="password" th:field="*{senhaPartida}" id="senhaPartida" class="form-control">
+            <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}" class="error-message"></strong>
+          </div>
+        </div>
+      </div>
+  <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div>
             <label for="ePrivada">Partida Privada:</label>
             <input type="checkbox" th:field="*{ePrivada}" id="ePrivada">
+          </div>
         </div>
-        <div>
-            <label for="senhaPartida">Senha da Partida:</label>
-            <input type="password" th:field="*{senhaPartida}" id="senhaPartida">
-            <strong th:if="${#fields.hasErrors('senhaPartida')}" th:errors="*{senhaPartida}"></strong>
+      </div>
+  <br>
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center" text-center>
+            <button class="btn-blue rounded" type="submit">Criar Partida</button>
         </div>
-        <br>
-        <button type="submit">Criar Partida</button><br><br>
+      </div>
     </form>
-</body>
+  </body>
 
 </html>

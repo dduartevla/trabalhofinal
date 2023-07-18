@@ -20,8 +20,6 @@ import jakarta.validation.Valid;
 @Transactional
 public class PartidaController {
 
-    Partida partida;
-
     public String getUltimoIdPartida(List<Partida> listaDePartidas) {
 
         Partida ultimaPartida = listaDePartidas.get(listaDePartidas.size() - 1);
@@ -37,6 +35,8 @@ public class PartidaController {
 
     @Autowired
     TransacaoRepository repTransacao;
+    Partida partida;
+    List<Conta> contas;
 
     @GetMapping({ "", "/", "/index.html" })
     public String index() {
@@ -79,7 +79,6 @@ public class PartidaController {
     @Transactional
     @PostMapping("/escolheuPartida")
     public ModelAndView escolheuPartida(@RequestParam("partidaId") String partidaId) {
-        Long partidaIdLong = Long.valueOf(partidaId);
         System.out.println("ENTROUUUUUU>>>>>>>>>>>>");
         this.partida = partidaRep.findById(partidaId);
         System.out.println("OLHA AQUI->->->->->: " + partidaId);
@@ -145,8 +144,8 @@ public class PartidaController {
             return mv;
         }
 
-        List<Conta> contas = new ArrayList<Conta>();
-        contas = partida.getContas();
+        
+        this.contas = partida.getContas();
 
         // verifica se já existe uma conta com esse nome
         for (int i = 0; i < contas.size(); i++) {
@@ -187,9 +186,11 @@ public class PartidaController {
             System.out.println(partida.getContas().get(i).getNomeConta());
         }
 
+        List <Conta> listaDeContas = repConta.findAll();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
+        mv.addObject("listaDeContas", listaDeContas);
         return mv;
     }
 
