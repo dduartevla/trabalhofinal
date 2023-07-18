@@ -49,7 +49,8 @@ public class PartidaController {
         Conta contaBanco = new Conta();
         contaBanco.setNomeConta("Banco");
         contaBanco.setSaldo(partida.getSaldoBanco());
-        repConta.save(contaBanco);
+        if (!repConta.existsByNomeConta("Banco"))
+            repConta.save(contaBanco);
         ModelAndView mv = new ModelAndView();
         mv.addObject("partida", partida);
         mv.setViewName("criaNovaPartida");
@@ -174,7 +175,7 @@ public class PartidaController {
         partidaRep.save(partida);
 
         Conta novaConta = new Conta();
-        novaConta.setNomeConta(nomeConta);
+        novaConta.setNomeConta(nomeConta.trim());
         novaConta.setSenhaConta(senhaConta);
         novaConta.setSaldo(25000.00);
         partida.setContaQueJoga(novaConta);
@@ -183,7 +184,7 @@ public class PartidaController {
         partida.setNomeConta(nomeConta);
         novaConta.setPartida(partida);
         partidaRep.save(partida);
-        if (repConta.findBynomeConta(nomeConta) == null)
+        if (!repConta.existsByNomeConta(nomeConta.trim()))
             repConta.save(novaConta);
 
         for (int i = 0; i < partida.getContas().size(); i++) {
@@ -336,13 +337,7 @@ public class PartidaController {
 
         System.out.println("Partida Controller 335");
 
-        try {
-            partidaRep.save(partida);
-        } catch (Exception e) {
-            System.out.println("houve");
-        }
-
-        mv.setViewName("partidaEmProgresso.html.html");
+        mv.setViewName("partidaEmProgresso.html");
         mv.addObject("partida", partida);
         return mv;
     }
