@@ -30,15 +30,26 @@
                     <div class="p-2">
                         <h1 class="partidaInfo">Saldo: <span class="text-primary" th:text="*{contaQueJoga.saldo}"></span></h1>
                     </div>
-                    <div class="p-2">
-                        <label for="contaDestino">Conta Destino:</label>
-                        <select name="contaDestino" id="contaDestino">
-                            <option th:each="conta : ${partida.contas}" th:value="${conta.nomeConta}" th:text="${conta.nomeConta}"></option>
-                        </select>
-                        <br>
-                        <label for="valor">Valor:</label>
-                        <input type="number" name="valor" id="valor" required>
-                        <button type="submit">Pagar</button>
+                    <div class="row p-2">
+                        <div class="col-6">
+                            <h1 class="partidaInfo">
+                                <label class="conta_destino" for="contaDestino">Conta Destino:</label>
+                            </h1>
+                            <select name="contaDestino" id="contaDestino" class="form-select-sm m-1">
+                                <option th:each="conta : ${partida.contas}" th:value="${conta.nomeConta}" th:text="${conta.nomeConta}"></option>
+                            </select>
+                        </div>
+                        <div class="col-6 row">
+                            <div class="align-items-center col-6">
+                                <h1 class="partidaInfo">
+                                    <label for="valor">Valor:</label>
+                                </h1>
+                                <input class="input-group" type="number" name="valor" id="valor" required>
+                            </div>
+                            <div class="align-items-center col-6 d-flex">
+                                <button type="submit" class="btn btn-success mx-1">Pagar</button>     
+                            </div>
+                        </div>
                     </div>
                 </form>
                 
